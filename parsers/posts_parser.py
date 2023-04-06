@@ -23,6 +23,7 @@ def posts_parser(vk):
                 owner_id = int(post.get('owner_id'))
                 type = 'group' if owner_id < 0 else 'people'
                 owner_id = owner_id * -1 if type == 'group' else owner_id
+                post_id = int(post.get('id'))
                 print(post)
                 if type == 'group':
                     group_id, name, screen_name, is_closed, type_group,\
@@ -37,7 +38,7 @@ def posts_parser(vk):
 
                     to_database_user(vk_id, name, surname, phone_number, email, city, status)
 
-                # comments_parser.comments_parser(vk, owner_id, type)
+                comments_parser.comments_parser(vk, owner_id, post_id, type)
 
         except (vk_api.VkApiError, vk_api.ApiError) as error_msg:
             print(error_msg)

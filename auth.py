@@ -1,5 +1,5 @@
 import vk_api
-from constants import VK_LOGIN, VK_PASSWORD
+from constants import VK_TOKEN
 
 
 def auth_handler():
@@ -10,15 +10,8 @@ def auth_handler():
 
 
 def authorisation():
-    login, password = VK_LOGIN, VK_PASSWORD
-    vk_session = vk_api.VkApi(login, password,
-                              auth_handler=auth_handler)
-
-    try:
-        vk_session.auth()
-    except vk_api.AuthError as error_msg:
-        print(error_msg)
-        return
-
+    token = VK_TOKEN
+    vk_session = vk_api.VkApi(token=token)  # Для остальных
     vk = vk_session.get_api()
+
     return vk
